@@ -1,15 +1,3 @@
-/* =====================================================================
- * js/data.js — Toàn bộ nội dung động của website Project Hub nhóm DAS
- * ---------------------------------------------------------------------
- * QUY TẮC SỬ DỤNG:
- *   1. Muốn sửa nội dung website → sửa trong file NÀY, không sửa HTML.
- *   2. Mọi chỗ cần điền thật đều đánh dấu "TODO:".
- *   3. Không xoá các key đã có — script.js render dựa trên cấu trúc này.
- * ===================================================================== */
-
-/* =====================================================================
- * 1. THÔNG TIN NHÓM
- * ===================================================================== */
 const TEAM_INFO = {
   name: "DAS",
   fullName: "Nhóm DAS",
@@ -17,24 +5,12 @@ const TEAM_INFO = {
     vi: "Nền tảng Đăng ký & Quản lý Sự kiện Sinh viên",
     en: "Campus Event Hub",
   },
-  // TODO: Điền học kỳ / môn học / giảng viên hướng dẫn
   course: "TODO: Tên môn học",
   semester: "TODO: Học kỳ",
   lecturer: "TODO: Giảng viên hướng dẫn",
   slogan: "Khám phá, đăng ký và check-in sự kiện mượt mà cùng DAS",
-  // TODO: Điền email/ fanpage liên hệ của nhóm (nếu có)
   contactEmail: "TODO: email@example.com",
 };
-
-/* =====================================================================
- * 2. THÀNH VIÊN NHÓM (7 người) — ĐÃ ĐIỀN TÊN & MSSV
- * ---------------------------------------------------------------------
- * Các field còn trống (avatar, khoa, role) sẽ điền sau.
- *   - avatar : đường dẫn ảnh trong thư mục img/ (VD: "img/member-01.jpg")
- *              Nếu để chuỗi rỗng "", script sẽ tự hiện avatar chữ cái.
- *   - khoa   : VD "Khoa Khoa học & Kỹ thuật Thông tin"
- *   - role   : vai trò trong dự án (Trưởng nhóm / Frontend / Backend / ...)
- * ===================================================================== */
 const DAS_MEMBERS = [
   {
     id: "M1",
@@ -43,7 +19,6 @@ const DAS_MEMBERS = [
     avatar: "", // TODO: "img/member-01.jpg"
     khoa: "", // TODO
     role: "Trưởng nhóm",
-    // TODO: 1 câu mô tả trách nhiệm chính (nếu muốn hiện trên card)
     bio: "",
   },
   {
@@ -101,13 +76,6 @@ const DAS_MEMBERS = [
     bio: "",
   },
 ];
-
-/* =====================================================================
- * 3. TỔNG QUAN DỰ ÁN — USER STORIES
- * ---------------------------------------------------------------------
- * 6 stories đã có sẵn nội dung từ đề bài, không cần sửa.
- * Nếu muốn thêm/bớt, cứ sửa mảng này.
- * ===================================================================== */
 const USER_STORIES = [
   {
     id: "US1",
@@ -146,19 +114,6 @@ const USER_STORIES = [
     text: "Tôi muốn xem biểu đồ thống kê tỷ lệ đăng ký so với tỷ lệ check-in thực tế để đánh giá mức độ quan tâm của sinh viên và rút kinh nghiệm cho các sự kiện sau.",
   },
 ];
-
-/* =====================================================================
- * 4. PHÂN CÔNG NHIỆM VỤ — MA TRẬN RAM
- * ---------------------------------------------------------------------
- * R = Responsible (người làm chính)
- * A = Accountable (người chịu trách nhiệm cuối)
- * C = Consulted   (người được hỏi ý kiến)
- * I = Informed    (người được thông báo)
- *
- * TODO: Cột "matrix" là mảng 8 ký tự, mỗi ký tự tương ứng 1 task bên dưới.
- *       Thứ tự task khớp với mảng RAM_TASKS.
- *       Ví dụ: "R A C I R - I C" → điền sau.
- * ===================================================================== */
 const RAM_TASKS = [
   { id: "T1", name: "Thiết kế UI/UX (Figma)" },
   { id: "T2", name: "Frontend - Trang Discovery" },
@@ -169,8 +124,6 @@ const RAM_TASKS = [
   { id: "T7", name: "Dashboard & Biểu đồ (Recharts)" },
   { id: "T8", name: "Testing, Deploy & Tài liệu" },
 ];
-
-// TODO: Điền ma trận phân công. Mỗi dòng = 1 thành viên, cột theo RAM_TASKS.
 const RAM_MATRIX = [
   { memberId: "M1", values: ["", "", "", "", "", "", "", ""] }, // Bùi Phan Thành Trí
   { memberId: "M2", values: ["", "", "", "", "", "", "", ""] }, // Nguyễn Bùi Anh Tuấn
@@ -180,14 +133,6 @@ const RAM_MATRIX = [
   { memberId: "M6", values: ["", "", "", "", "", "", "", ""] }, // Nguyễn Quốc Triệu
   { memberId: "M7", values: ["", "", "", "", "", "", "", ""] }, // Nguyễn Minh Trí
 ];
-
-/* =====================================================================
- * 5. WBS & MILESTONES
- * ---------------------------------------------------------------------
- * TODO: Điền mốc thời gian thật theo kế hoạch nhóm.
- * Gợi ý mốc: M1 Setup → M2 Discovery/Booking → M3 Ticket/Scanner
- *            → M4 Dashboard → M5 Testing & Deploy
- * ===================================================================== */
 const MILESTONES = [
   {
     id: "M1",
@@ -220,8 +165,6 @@ const MILESTONES = [
     desc: "15 test case, so sánh AI, deploy chốt",
   },
 ];
-
-// TODO: Cập nhật tiến độ thực tế (0-100 hoặc trạng thái)
 const MILESTONE_STATUS = {
   M1: { status: "not-started", actual: "" }, // "not-started" | "in-progress" | "done"
   M2: { status: "not-started", actual: "" },
@@ -229,10 +172,6 @@ const MILESTONE_STATUS = {
   M4: { status: "not-started", actual: "" },
   M5: { status: "not-started", actual: "" },
 };
-
-/* =====================================================================
- * 6. PHẠM VI DỰ ÁN — IN / OUT SCOPE
- * ===================================================================== */
 const SCOPE_IN = [
   "Đăng ký sự kiện với kiểm soát số chỗ (capacity) realtime",
   "Cấp vé điện tử định danh kèm mã QR Code",
@@ -241,19 +180,12 @@ const SCOPE_IN = [
   "Xác thực người dùng & phân quyền (Sinh viên / BTC / Staff)",
   "Responsive trên mobile & desktop",
 ];
-
 const SCOPE_OUT = [
   "TODO: VD — Không hỗ trợ thanh toán vé có phí",
   "TODO: VD — Không làm app native iOS/Android",
   "TODO: VD — Không gửi email/SMS tự động",
   "TODO: VD — Không tích hợp ví điện tử",
 ];
-
-/* =====================================================================
- * 7. KIẾN TRÚC HỆ THỐNG
- * ---------------------------------------------------------------------
- * Sơ đồ sẽ render theo cấu trúc layer → items.
- * ===================================================================== */
 const ARCHITECTURE = [
   {
     layer: "Client",
@@ -287,33 +219,15 @@ const ARCHITECTURE = [
     items: ["Vercel / Netlify (FE)", "Render (BE)", "Supabase Cloud (DB)"],
   },
 ];
-
-/* =====================================================================
- * 8. LIÊN KẾT QUAN TRỌNG
- * ---------------------------------------------------------------------
- * TODO: Thay href thật. Nếu chưa có, để "#" thì script tự thêm class
- *       "link-disabled" và chặn click.
- * ===================================================================== */
 const IMPORTANT_LINKS = {
   github: { label: "GitHub Repository", href: "#", desc: "TODO: Mô tả ngắn" },
   demo: { label: "Live Demo", href: "#", desc: "TODO: Mô tả ngắn" },
-  // TODO: thêm link Figma, tài liệu PDF... nếu có
 };
-
-/* =====================================================================
- * 9. ĐÁNH GIÁ ĐÓNG GÓP THÀNH VIÊN
- * ---------------------------------------------------------------------
- * Thang điểm 100 = 40% Code + 30% Họp nhóm + 30% Review chéo
- * TODO: Điền điểm thật của từng bạn sau khi kết thúc dự án.
- *       Hiện tại để 0 để không hiển thị số liệu giả.
- * ===================================================================== */
 const CONTRIBUTION_METHOD = [
   { criterion: "Code & Deliverable", weight: "40%" },
   { criterion: "Tham gia họp & đúng giờ", weight: "30%" },
   { criterion: "Review chéo & hỗ trợ nhóm", weight: "30%" },
 ];
-
-// TODO: Điền điểm (0-100). Để trống nếu chưa đánh giá.
 const CONTRIBUTION_SCORES = {
   M1: { code: null, meeting: null, review: null },
   M2: { code: null, meeting: null, review: null },
@@ -323,10 +237,6 @@ const CONTRIBUTION_SCORES = {
   M6: { code: null, meeting: null, review: null },
   M7: { code: null, meeting: null, review: null },
 };
-
-/* =====================================================================
- * 10. TECH STACK & AI TASKS
- * ===================================================================== */
 const TECH_STACK = [
   {
     group: "Frontend",
@@ -337,7 +247,6 @@ const TECH_STACK = [
   { group: "Database", items: ["Supabase (PostgreSQL)"] },
   { group: "Deploy", items: ["Vercel", "Render", "Supabase Cloud"] },
 ];
-
 const AI_TASKS = [
   {
     phase: "Thiết kế",
@@ -360,22 +269,14 @@ const AI_TASKS = [
     desc: "Sinh 15 test case cho luồng Check-in (mã sai, vé dùng 2 lần...).",
   },
 ];
-
 const AI_COMPARISON = {
   title: "So sánh 2 công cụ AI",
   prompt:
     "Viết component React quét mã QR sử dụng html5-qrcode có xử lý loading và modal thông báo kết quả.",
   tools: ["Cursor", "ChatGPT-4o"],
   criteria: ["Tính tối ưu mã nguồn", "Xử lý lỗi ngoại lệ", "Tính dễ bảo trì"],
-  // TODO: Điền kết quả so sánh thực tế khi làm xong
   result: "TODO: Điền kết quả so sánh sau khi hoàn thành tác vụ.",
 };
-
-/* =====================================================================
- * 11. THỎA THUẬN NHÓM & ĐIỀU LỆ — TODO toàn bộ
- * ---------------------------------------------------------------------
- * Điền nội dung thật sau. Cấu trúc gợi ý bên dưới.
- * ===================================================================== */
 const GROUP_AGREEMENT = [
   { title: "Kênh liên lạc chính", content: "TODO: VD — Zalo nhóm + Discord" },
   { title: "Lịch họp định kỳ", content: "TODO: VD — Thứ 3 & Thứ 7, 20:00" },
@@ -389,7 +290,6 @@ const GROUP_AGREEMENT = [
     content: "TODO: VD — Trễ 2 lần → cảnh cáo nội bộ",
   },
 ];
-
 const PROJECT_CHARTER = {
   projectName: "Campus Event Hub",
   leader: "TODO: Tên trưởng nhóm",
@@ -421,10 +321,6 @@ const PROJECT_CHARTER = {
     { risk: "TODO: Rủi ro khác", mitigation: "TODO" },
   ],
 };
-
-/* =====================================================================
- * 12. UI/UX — 5 MÀN HÌNH (mô tả, không cần sửa)
- * ===================================================================== */
 const UI_SCREENS = [
   {
     id: 1,
@@ -451,12 +347,7 @@ const UI_SCREENS = [
     name: "Bảng điều khiển Quản trị",
     desc: "Form tạo sự kiện, bảng người đăng ký, biểu đồ tỷ lệ lấp đầy & check-in.",
   },
-  // TODO: Thêm link Figma nếu có
 ];
-
-/* =====================================================================
- * EXPORT — gán ra window để script.js dùng
- * ===================================================================== */
 window.DAS_DATA = {
   TEAM_INFO,
   DAS_MEMBERS,

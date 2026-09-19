@@ -1,20 +1,11 @@
-/*
- * SCRIPT LOGIC (Cập nhật Data Binding từ window.DAS_DATA)
- * Render dữ liệu động 100%, Parallax Effect, và Scroll Spy cho Navigation.
- */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Đảm bảo dữ liệu tồn tại
   if (!window.DAS_DATA) {
     console.error(
       "Lỗi: Không tìm thấy window.DAS_DATA. Hãy kiểm tra file js/data.js.",
     );
     return;
   }
-
   const DATA = window.DAS_DATA;
-
-  // 1. RENDER DATA VÀO DETAILS.HTML
   renderOverview(DATA.USER_STORIES);
   renderTeamMembers(DATA.DAS_MEMBERS);
   renderCharter(DATA.PROJECT_CHARTER);
@@ -33,22 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   renderTechStack(DATA.TECH_STACK);
   renderAITasks(DATA.AI_TASKS, DATA.AI_COMPARISON);
-
-  // 2. PARALLAX EFFECT (Cho trang index.html)
   initParallax();
-
-  // 3. SCROLL SPY NAV (Cho trang details.html)
   initScrollSpy();
 });
-
-/* ==========================================================================
-   CÁC HÀM RENDER DỮ LIỆU
-   ========================================================================== */
-
 function renderOverview(stories) {
   const container = document.getElementById("overview-container");
   if (!container || !stories) return;
-
   let html = `
         <div class="card">
             <h3>Nền tảng Đăng ký & Quản lý Sự kiện Sinh viên</h3>
@@ -56,12 +37,10 @@ function renderOverview(stories) {
             <h4 class="mt-8">User Stories</h4>
             <div class="grid grid-2 mt-4">
     `;
-
   stories.forEach((story) => {
     let badgeClass = "badge-neutral";
     if (story.roleKey === "student") badgeClass = "badge-success";
     if (story.roleKey === "organizer") badgeClass = "badge-warning";
-
     html += `
             <div class="card" style="padding: 16px;">
                 <span class="badge ${badgeClass} mb-2">${story.role}</span>
@@ -69,15 +48,12 @@ function renderOverview(stories) {
             </div>
         `;
   });
-
   html += `</div></div>`;
   container.innerHTML = html;
 }
-
 function renderTeamMembers(members) {
   const container = document.getElementById("team-container");
   if (!container || !members) return;
-
   container.innerHTML = members
     .map((member) => {
       const nameParts = member.name.trim().split(/\s+/);
@@ -88,7 +64,6 @@ function renderTeamMembers(members) {
       const avatar = member.avatar
         ? `<img src="${member.avatar}" alt="Avatar của ${member.name}" loading="lazy">`
         : `<div class="team-member-avatar avatar-fallback" role="img" aria-label="Avatar chữ cái của ${member.name}">${initials.toUpperCase()}</div>`;
-
       return `
             <div class="card team-member">
                 ${avatar}
@@ -101,11 +76,9 @@ function renderTeamMembers(members) {
     })
     .join("");
 }
-
 function renderCharter(charter) {
   const container = document.getElementById("charter-container");
   if (!container || !charter) return;
-
   let html = `
         <div class="table-wrapper">
             <table>
@@ -131,11 +104,9 @@ function renderCharter(charter) {
     `;
   container.innerHTML = html;
 }
-
 function renderAgreement(agreement) {
   const container = document.getElementById("agreement-container");
   if (!container || !agreement) return;
-
   container.innerHTML = agreement
     .map(
       (item) => `
@@ -144,26 +115,20 @@ function renderAgreement(agreement) {
     )
     .join("");
 }
-
 function renderRAM(tasks, matrix, members) {
   const thead = document.getElementById("ram-thead");
   const tbody = document.getElementById("ram-tbody");
   if (!thead || !tbody || !tasks || !matrix || !members) return;
-
-  // Header row
   let theadHtml = `<tr><th>Thành viên</th>`;
   tasks.forEach((task) => {
     theadHtml += `<th title="${task.name}">${task.id}</th>`;
   });
   theadHtml += `</tr>`;
   thead.innerHTML = theadHtml;
-
-  // Body rows
   tbody.innerHTML = matrix
     .map((row) => {
       const member = members.find((m) => m.id === row.memberId);
       const name = member ? member.name : row.memberId;
-
       let rowHtml = `<tr><td><strong>${name}</strong></td>`;
       row.values.forEach((val) => {
         rowHtml += `<td>${val || "-"}</td>`;
@@ -173,11 +138,9 @@ function renderRAM(tasks, matrix, members) {
     })
     .join("");
 }
-
 function renderScope(scopeIn, scopeOut) {
   const inContainer = document.getElementById("scope-in-container");
   const outContainer = document.getElementById("scope-out-container");
-
   if (inContainer && scopeIn) {
     inContainer.innerHTML = scopeIn.map((item) => `<li>${item}</li>`).join("");
   }
@@ -187,11 +150,9 @@ function renderScope(scopeIn, scopeOut) {
       .join("");
   }
 }
-
 function renderMilestones(milestones) {
   const container = document.getElementById("milestones-container");
   if (!container || !milestones) return;
-
   container.innerHTML = milestones
     .map(
       (ms) => `
@@ -205,11 +166,9 @@ function renderMilestones(milestones) {
     )
     .join("");
 }
-
 function renderArchitecture(architecture) {
   const container = document.getElementById("architecture-container");
   if (!container || !architecture) return;
-
   let html = "";
   architecture.forEach((layer, index) => {
     html += `
@@ -226,11 +185,9 @@ function renderArchitecture(architecture) {
   });
   container.innerHTML = html;
 }
-
 function renderUIUX(screens) {
   const container = document.getElementById("uiux-container");
   if (!container || !screens) return;
-
   container.innerHTML = screens
     .map(
       (screen) => `
@@ -250,21 +207,17 @@ function renderUIUX(screens) {
     )
     .join("");
 }
-
 function renderSchedule(milestones, statusDict) {
   const container = document.getElementById("schedule-container");
   if (!container || !milestones || !statusDict) return;
-
   container.innerHTML = milestones
     .map((ms) => {
       const statusData = statusDict[ms.id] || {
         status: "not-started",
         actual: "",
       };
-
       let badgeClass = "badge-neutral";
       let statusText = "Chưa bắt đầu";
-
       if (statusData.status === "done") {
         badgeClass = "badge-success";
         statusText = "Hoàn thành";
@@ -272,7 +225,6 @@ function renderSchedule(milestones, statusDict) {
         badgeClass = "badge-warning";
         statusText = "Đang làm";
       }
-
       return `
             <tr>
                 <td><strong>${ms.id}: ${ms.name}</strong></td>
@@ -283,16 +235,12 @@ function renderSchedule(milestones, statusDict) {
     })
     .join("");
 }
-
 function renderLinks(links) {
   const container = document.getElementById("links-container");
   if (!container || !links) return;
-
   const github = links.github;
   const demo = links.demo;
-
   let html = "";
-
   if (github) {
     const disabledAttr =
       github.href === "#" ? 'style="opacity: 0.5; pointer-events: none;"' : "";
@@ -303,7 +251,6 @@ function renderLinks(links) {
             </a>
         `;
   }
-
   if (demo) {
     const disabledAttr =
       demo.href === "#" ? 'style="opacity: 0.5; pointer-events: none;"' : "";
@@ -313,23 +260,19 @@ function renderLinks(links) {
             </a>
         `;
   }
-
   container.innerHTML = html;
 }
-
 function renderContribution(method, scores, members) {
   const methodContainer = document.getElementById(
     "contribution-method-container",
   );
   const thead = document.getElementById("contribution-thead");
   const tbody = document.getElementById("contribution-tbody");
-
   if (methodContainer && method) {
     methodContainer.innerHTML = method
       .map((m) => `<li><strong>${m.weight}:</strong> ${m.criterion}</li>`)
       .join("");
   }
-
   if (thead && tbody && scores && members) {
     thead.innerHTML = `
             <tr>
@@ -340,7 +283,6 @@ function renderContribution(method, scores, members) {
                 <th>Tổng điểm</th>
             </tr>
         `;
-
     tbody.innerHTML = members
       .map((member) => {
         const scoreData = scores[member.id] || {
@@ -355,7 +297,6 @@ function renderContribution(method, scores, members) {
           scoreData.code === null && scoreData.meeting === null
             ? "Chưa ĐG"
             : c + m + r;
-
         return `
                 <tr>
                     <td><strong>${member.name}</strong></td>
@@ -369,11 +310,9 @@ function renderContribution(method, scores, members) {
       .join("");
   }
 }
-
 function renderTechStack(techStack) {
   const container = document.getElementById("tech-container");
   if (!container || !techStack) return;
-
   container.innerHTML = techStack
     .map(
       (group) => `
@@ -387,7 +326,6 @@ function renderTechStack(techStack) {
     )
     .join("");
 }
-
 function renderAITasks(aiTasks, aiComparison) {
   const container = document.getElementById("ai-tasks-container");
   if (container && aiTasks) {
@@ -403,25 +341,19 @@ function renderAITasks(aiTasks, aiComparison) {
       )
       .join("");
   }
-
-  // AI Comparison
   const compTitle = document.getElementById("ai-comparison-title");
   const compPrompt = document.getElementById("ai-comparison-prompt");
   const compThead = document.getElementById("ai-comparison-thead");
   const compTbody = document.getElementById("ai-comparison-tbody");
-
   if (compTitle && compPrompt && compThead && compTbody && aiComparison) {
     compTitle.innerText = aiComparison.title;
     compPrompt.innerHTML = `<strong>Prompt thử nghiệm:</strong> <em>"${aiComparison.prompt}"</em>`;
-
     compThead.innerHTML = `
             <tr>
                 <th>Tiêu chí đánh giá</th>
                 ${aiComparison.tools.map((tool) => `<th>${tool}</th>`).join("")}
             </tr>
         `;
-
-    // Do data schema của bạn chưa map tiêu chí sang tool, mình để dạng table layout với result gộp.
     compTbody.innerHTML = `
             <tr>
                 <td>
@@ -434,23 +366,16 @@ function renderAITasks(aiTasks, aiComparison) {
         `;
   }
 }
-
-/* ==========================================================================
-   HÀM XỬ LÝ GIAO DIỆN & HIỆU ỨNG (Giữ nguyên)
-   ========================================================================== */
-
 function initParallax() {
   const layers = document.querySelectorAll(
     ".parallax-layer, .parallax-divider-image",
   );
   if (layers.length === 0) return;
-
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
   let ticking = false;
   let scrollY = 0;
-
   function updateParallax() {
     if (window.innerWidth >= 768 && !prefersReducedMotion) {
       layers.forEach((layer) => {
@@ -465,7 +390,6 @@ function initParallax() {
     }
     ticking = false;
   }
-
   window.addEventListener(
     "scroll",
     () => {
@@ -477,9 +401,7 @@ function initParallax() {
     },
     { passive: true },
   );
-
   updateParallax();
-
   window.addEventListener(
     "resize",
     () => {
@@ -492,39 +414,32 @@ function initParallax() {
     { passive: true },
   );
 }
-
 function initScrollSpy() {
   const navLinks = document.querySelectorAll(
     "#scroll-spy-nav a:not(.site-nav-brand)",
   );
   if (navLinks.length === 0) return;
-
   const sections = Array.from(navLinks)
     .map((link) => {
       const id = link.getAttribute("href").substring(1);
       return document.getElementById(id);
     })
     .filter(Boolean);
-
   if (sections.length === 0) return;
-
   const observerOptions = {
     root: null,
     rootMargin: "-20% 0px -60% 0px",
     threshold: 0,
   };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         navLinks.forEach((link) => link.classList.remove("active"));
-
         const activeLink = document.querySelector(
           `#scroll-spy-nav a:not(.site-nav-brand)[href="#${entry.target.id}"]`,
         );
         if (activeLink) {
           activeLink.classList.add("active");
-
           if (window.innerWidth < 1024) {
             const navContainer = document.querySelector(
               ".site-nav, .sidebar-nav",
@@ -532,7 +447,6 @@ function initScrollSpy() {
             const linkRect = activeLink.getBoundingClientRect();
             if (!navContainer) return;
             const navRect = navContainer.getBoundingClientRect();
-
             if (
               linkRect.left < navRect.left ||
               linkRect.right > navRect.right
@@ -548,6 +462,5 @@ function initScrollSpy() {
       }
     });
   }, observerOptions);
-
   sections.forEach((section) => observer.observe(section));
 }
